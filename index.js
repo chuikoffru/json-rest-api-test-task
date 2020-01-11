@@ -3,25 +3,27 @@ const query = require('./db')
 
 const app = express()
 
+// Получаем самую важную задачу, 100 - важно, 0 - не важно
 app.get('/', async (req, res) => {
 
   try {
 
-    const tasks = await query("SELECT * FROM tasks")
+    const tasks = await query("SELECT * FROM tasks ORDER BY priority DESC LIMIT 1")
 
-    res.json(tasks)
+    if(tasks.length > 0) {
+
+      return res.json(tasks[0])
+
+    } else {
+
+      return res.json({"status" : "Нет записей"})
+
+    }
 
   } catch (error) {
-    res.status(500).json(error)
+    return res.status(500).json(error)
   }
-
   
-})
-
-app.get('/:id', async (req, res) => {
-
-  //const taskId = req.params.id
-
 })
 
 app.post('/add', async (req, res) => {
@@ -57,5 +59,5 @@ app.listen(3000, async () => {
   }
 
   console.log('Example app listening on port 3000!')
-  
+
 })
