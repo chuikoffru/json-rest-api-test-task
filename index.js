@@ -1,24 +1,25 @@
 const express = require('express')
+const bodyParser = require('body-parser')
 const query = require('./db')
 
 const app = express()
+
+app.use(bodyParser.urlencoded({
+  extended: true
+}))
+
+app.use(bodyParser.json({
+  extended : true
+})) 
 
 // Получаем самую важную задачу, 100 - важно, 0 - не важно
 app.get('/', async (req, res) => {
 
   try {
 
-    const tasks = await query("SELECT * FROM tasks ORDER BY priority DESC LIMIT 1")
+    const tasks = await query("SELECT * FROM tasks ORDER BY priority DESC")
 
-    if(tasks.length > 0) {
-
-      return res.json(tasks[0])
-
-    } else {
-
-      return res.json({"status" : "Нет записей"})
-
-    }
+    return res.json(tasks)
 
   } catch (error) {
     return res.status(500).json(error)
@@ -28,7 +29,13 @@ app.get('/', async (req, res) => {
 
 app.post('/add', async (req, res) => {
 
-  //const fields = req.body
+  const fields = req.body
+
+  console.log('fields', fields)
+
+  //INSERT INTO `tasks` (`id`, `text`, `priority`) VALUES (NULL, 'Реализовать добавление новой задачи', '99')
+
+   res.json(fields)
 
 })
 
