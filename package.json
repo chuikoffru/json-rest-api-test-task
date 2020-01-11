@@ -1,0 +1,27 @@
+{
+  "name": "json-rest-api-test-task",
+  "version": "1.0.0",
+  "description": "Test task for nodejs backend position",
+  "main": "index.js",
+  "scripts": {
+    "start" : "node",
+    "dev" : "nodemon",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "nodejs",
+    "backend",
+    "rest",
+    "api",
+    "json",
+    "mysql",
+    "test"
+  ],
+  "author": "Konstantin Chuykov <chuikoff.ru@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "jest": "^24.9.0",
+    "promise-mysql": "^4.1.1"
+  }
+}
