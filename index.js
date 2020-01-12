@@ -4,29 +4,44 @@ const query = require('./db')
 
 const app = express()
 
+
 // Настраиваем body-parser
 
 app.use(bodyParser.urlencoded({extended: true}))
 
 app.use(bodyParser.json({extended: true}))
 
-// Получаем самую важную задачу, 100 - важно, 0 - не важно
+
+// Получаем самую важную задачу, 0 - важно, 100 - не важно
 
 app.get('/tasks', async(req, res) => {
 
   try {
 
-    const tasks = await query("SELECT * FROM tasks ORDER BY priority DESC")
+    const tasks = await query(`SELECT * FROM tasks ORDER BY priority ASC LIMIT 1`)
 
-    return res.json(tasks)
+    if(tasks.length > 0) {
+
+      return res.json(tasks[0])
+
+    } else {
+
+      return res.json({
+        message: "Задач нет"
+      })
+
+    }
 
   } catch (error) {
+
     return res
       .status(500)
       .json(error)
+
   }
 
 })
+
 
 //Добавляем новую задачу
 
@@ -39,13 +54,13 @@ app.post('/tasks', async(req, res) => {
 
     return res
       .status(422)
-      .json({status: "Вы не заполнили обязательные поля"})
+      .json({message: "Вы не заполнили обязательные поля"})
 
   }
 
   try {
 
-    const sql = `INSERT INTO tasks(text,priority) VALUES(?,?)`;
+    const sql = `INSERT INTO tasks(text,priority) VALUES(?,?)`
     const values = [fields.text, fields.priority]
     const data = await query({sql, values})
 
@@ -54,22 +69,42 @@ app.post('/tasks', async(req, res) => {
     }
 
   } catch (error) {
-    
+
     return res
       .status(500)
-      .json({status: "Ошибка записи данных в базу", error})
+      .json({message: "Ошибка записи данных в базу", error})
   }
 
 })
 
 
-//Удаляем задачу по её ID, возвращаем status : true в случае успеха
+//Удаляем задачу по её ID
 
 app.delete('/tasks/:id', async(req, res) => {
 
-  //const taskId = req.params.id
+  const taskId = parseInt(req.params.id)
+
+  try {
+
+    if (taskId) {
+
+      const data = await query(`DELETE FROM tasks WHERE id = ${taskId}`)
+      return res.json(data)
+
+    } else {
+
+      return res.status(442).json({
+        message : "Указан неверный ID"
+      })
+
+    }
+
+  } catch (error) {
+    return res.status(500).json(error)
+  }
 
 })
+
 
 //Слушаем указанный порт
 
