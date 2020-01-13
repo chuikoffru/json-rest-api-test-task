@@ -1,10 +1,12 @@
 const mysql = require('promise-mysql')
 
-const db = async (query) => {
+module.exports = async (query) => {
+
+  let connection
 
   try {
 
-    const connection = await mysql.createConnection({
+    connection = await mysql.createConnection({
       host : "remotemysql.com",
       user : "grqAt1o6uw",
       password : "***REMOVED***",
@@ -15,11 +17,15 @@ const db = async (query) => {
     return await connection.query(query)
     
   } catch (error) {
-    console.error('error connecting: ' + error.stack)
+
+    console.error('Connection error: ' + error.stack)
     throw error
+
+  } finally {
+
+    console.log('Connection closed',)
+    connection.end()
+
   }
 
 }
-
-
-module.exports = db

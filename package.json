@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node",
     "dev": "nodemon",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "keywords": [
     "nodejs",
@@ -22,7 +22,10 @@
   "dependencies": {
     "body-parser": "^1.19.0",
     "express": "^4.17.1",
-    "jest": "^24.9.0",
     "promise-mysql": "^4.1.1"
+  },
+  "devDependencies": {
+    "jest": "^24.9.0",
+    "nodemon": "^2.0.2"
   }
 }

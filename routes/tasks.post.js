@@ -42,7 +42,8 @@ module.exports = async(req, res) => {
     const data = await query({sql, values})
 
     return res.json({
-      message : `Добавлена ${data.affectedRows} запись c ID: ${data.insertId}`
+      message : `Добавлена ${data.affectedRows} запись c ID: ${data.insertId}`,
+      data
     })
 
   } catch (error) {

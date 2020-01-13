@@ -13,7 +13,8 @@ module.exports = async(req, res) => {
       if(data.affectedRows > 0) {
 
         return res.json({
-          message : `Удалена ${data.affectedRows} задача с ID: ${taskId}`
+          message : `Удалена ${data.affectedRows} задача с ID: ${taskId}`,
+          data
         })
 
       } else {
