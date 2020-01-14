@@ -1,0 +1,31 @@
+version: '3'
+services: 
+  web:
+    build: .
+    volumes: 
+      - .:/app/
+      - /app/node_modules
+    working_dir: /app
+    command: npm start
+    ports: 
+      - "3000:3000"
+    depends_on: 
+      - mariadb
+    environment: 
+      PORT : 3000
+      DB_HOST : "mariadb"
+      DB_USER : "root"
+      DB_PASS : "toor"
+      DB_NAME : "tasks"
+      DB_PORT : 3306
+  mariadb:
+    image: mariadb
+    ports: 
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: toor
+      MYSQL_DATABASE: tasks
+      MYSQL_USER: root
+      MYSQL_PASSWORD: toor
+    volumes:
+     - ${PWD}/mariadb:/var/lib/mysql

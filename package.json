@@ -4,8 +4,8 @@
   "description": "Test task for nodejs backend position",
   "main": "index.js",
   "scripts": {
-    "start": "node",
-    "dev": "nodemon",
+    "start": "node index.js",
+    "dev": "NODE_ENV=development nodemon",
     "test": "jest"
   },
   "keywords": [
