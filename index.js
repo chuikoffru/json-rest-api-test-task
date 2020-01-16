@@ -16,14 +16,11 @@ app.use(bodyParser.json({
   extended: true
 }))
 
-
 // Получаем самую важную задачу, 0 - важно, 100 - не важно
 app.get('/tasks', require('./routes/tasks.get'))
 
-
 //Добавляем новую задачу
 app.post('/tasks', require('./routes/tasks.post'))
-
 
 //Удаляем задачу по её ID
 app.delete('/tasks/:id', require('./routes/tasks.delete'))
