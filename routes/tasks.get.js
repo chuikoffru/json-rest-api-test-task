@@ -4,7 +4,7 @@ module.exports = async(req, res) => {
 
   try {
 
-    const tasks = await query(`SELECT * FROM tasks ORDER BY priority ASC LIMIT 1`)
+    const tasks = await query(`SELECT * FROM tasks ORDER BY id DESC, priority ASC LIMIT 1`)
 
     if(tasks.length > 0) {
 

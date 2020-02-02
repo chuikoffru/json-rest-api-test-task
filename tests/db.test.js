@@ -1,7 +1,5 @@
 const query = require('../db')
 
-const testTable = "tests"
-
 describe("MySQL", () => {
 
   test("Проверка корректного соединения", async() => {
@@ -14,7 +12,7 @@ describe("MySQL", () => {
 
   test("Создание тестовой таблицы", async() => {
 
-    const data = await query(`CREATE TABLE IF NOT EXISTS ${testTable} (
+    const data = await query(`CREATE TABLE IF NOT EXISTS tasks (
         id INT NOT NULL AUTO_INCREMENT , 
         text VARCHAR(255) NOT NULL , 
         priority TINYINT(100) NOT NULL , 
@@ -26,7 +24,7 @@ describe("MySQL", () => {
 
   test("Проверка наличия тестовой таблицы", async() => {
 
-    const testTableExist = await query(`SHOW TABLES FROM grqAt1o6uw LIKE "${testTable}"`)
+    const testTableExist = await query(`SHOW TABLES FROM grqAt1o6uw LIKE "tasks"`)
     expect(testTableExist.length).toBe(1)
 
   })

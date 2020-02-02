@@ -1,5 +1,7 @@
 const mysql = require('promise-mysql')
 
+//База данных для локальной разработки и запуска тестов
+//Допустимо только для приватных реп
 if (process.env.NODE_ENV == 'development') {
 
   process.env = {
