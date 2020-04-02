@@ -5,10 +5,10 @@ const mysql = require('promise-mysql')
 if (process.env.NODE_ENV == 'development') {
 
   process.env = {
-    DB_HOST: "",
-    DB_NAME: "",
+    DB_HOST: "remotemysql.com",
+    DB_NAME: "grqAt1o6uw",
     DB_PASS: "",
-    DB_USER: ""
+    DB_USER: "grqAt1o6uw"
   }
 }
 
